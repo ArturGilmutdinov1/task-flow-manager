@@ -1,0 +1,14 @@
+{
+  "name": "task-flow-manager-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --port 5173 --strictPort",
+    "start": "vite --port 5173 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --port 5173 --strictPort"
+  },
+  "devDependencies": {
+    "vite": "^7.1.12"
+  }
+}
