@@ -1,5 +1,4 @@
-const root = document.getElementById("app");
+import { TaskFlowApp } from "./core/TaskFlowApp.js";
 
-if (root) {
-  root.textContent = "Frontend skeleton. Components are temporarily removed.";
-}
+const app = new TaskFlowApp(document.getElementById("app"));
+app.init();
