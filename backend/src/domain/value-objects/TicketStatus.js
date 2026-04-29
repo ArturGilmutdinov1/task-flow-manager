@@ -1,19 +1,14 @@
 const TicketStatus = {
   // Начальный статус (черновик)
   DRAFT: 'draft',
-  
   // Заявка на проверке у оператора
   PENDING_OPERATOR: 'pending_operator',
-  
   // Заявка на согласовании у руководителя
   PENDING_MANAGER: 'pending_manager',
-  
   // Заявка отправлена на доработку заявителю
   REWORK: 'rework',
-  
   // Заявка согласована (финальный статус)
   APPROVED: 'approved',
-  
   // Заявка отклонена (финальный статус)
   REJECTED: 'rejected'
 };

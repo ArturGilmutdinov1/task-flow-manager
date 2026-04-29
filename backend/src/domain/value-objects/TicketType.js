@@ -5,7 +5,6 @@
 const TicketType = {
   // Закупка оборудования или ПО
   PURCHASE: 'purchase',
-  
   // Заявление на отпуск
   VACATION: 'vacation'
 };

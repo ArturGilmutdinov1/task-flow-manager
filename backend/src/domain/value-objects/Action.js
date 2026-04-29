@@ -6,19 +6,14 @@ const { TicketStatus } = require('./TicketStatus');
 const Action = {
   // Создать заявку
   CREATE: 'create',
-  
   // Подать на рассмотрение (из черновика)
   SUBMIT: 'submit',
-  
   // Согласовать (финальное решение)
   APPROVE: 'approve',
-  
   // Отклонить (финальное решение)
   REJECT: 'reject',
-  
   // Вернуть на доработку
   RETURN_FOR_REWORK: 'rework',
-  
   // Передать руководителю
   FORWARD_TO_MANAGER: 'forward'
 };

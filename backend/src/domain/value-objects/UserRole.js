@@ -13,6 +13,8 @@ const UserRole = {
   MANAGER: 'manager'
 };
 
+const USER_ROLES = Object.values(UserRole);
+
 // Человекочитаемые названия (для UI)
 const UserRoleLabels = {
   [UserRole.REQUESTER]: 'Заявитель',
@@ -27,8 +29,14 @@ const TicketsVisibilityByRole = {
   [UserRole.MANAGER]: 'pending_manager'     // требующие руководителя
 };
 
+function isValidUserRole(role) {
+  return USER_ROLES.includes(role);
+}
+
 module.exports = {
   UserRole,
+  USER_ROLES,
+  isValidUserRole,
   UserRoleLabels,
   TicketsVisibilityByRole
 };
