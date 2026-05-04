@@ -87,7 +87,7 @@ export class TaskFlowApp {
       renderLogin({
         target: view,
         onLogin: async (payload) => {
-          const user = await this.api.createUser(payload);
+          const user = await this.api.signIn(payload);
           this._persistUser(user);
           navigateTo("#/tickets");
         }

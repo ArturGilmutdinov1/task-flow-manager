@@ -22,8 +22,8 @@ class UserController {
   create = (req, res) => {
     try {
       const { name, role } = req.body;
-      const user = this._userService.createUser({ name, role });
-      return res.status(201).json(user.toJSON());
+      const { user, created } = this._userService.signIn({ name, role });
+      return res.status(created ? 201 : 200).json(user.toJSON());
     } catch (error) {
       return handleError(error, res);
     }

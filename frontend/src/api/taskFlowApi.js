@@ -48,7 +48,8 @@ export class TaskFlowApi {
     return this._request("/health");
   }
 
-  createUser({ name, role }) {
+  /** Вход по логину (имя) и роли: тот же пользователь, если уже был создан с этим именем и ролью. */
+  signIn({ name, role }) {
     return this._request("/api/users", { method: "POST", body: { name, role } });
   }
 

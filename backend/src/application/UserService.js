@@ -1,5 +1,9 @@
 const { User } = require('../domain/entities/User');
 
+function normalizeLoginName(name) {
+  return String(name ?? '').trim().toLowerCase();
+}
+
 class UserService {
   constructor({ userRepository } = {}) {
     if (!userRepository) {
@@ -7,6 +11,33 @@ class UserService {
     }
 
     this._userRepository = userRepository;
+  }
+
+  /**
+   * Вход по логину (имя) и роли: существующий пользователь или новая запись с тем же ключом.
+   * @returns {{ user: User, created: boolean }}
+   */
+  signIn({ name, role }) {
+    const trimmedName = String(name ?? '').trim();
+    if (!trimmedName) {
+      throw new Error('Name is required');
+    }
+
+    const key = normalizeLoginName(trimmedName);
+    const existing = this._userRepository
+      .findAll()
+      .find((u) => u.role === role && normalizeLoginName(u.name) === key);
+
+    if (existing) {
+      return { user: existing, created: false };
+    }
+
+    const user = User.create({ name: trimmedName, role });
+    if (this._userRepository.findById(user.id)) {
+      throw new Error(`User with id "${user.id}" already exists`);
+    }
+
+    return { user: this._userRepository.save(user), created: true };
   }
 
   createUser(data) {

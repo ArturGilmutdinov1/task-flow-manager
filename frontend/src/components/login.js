@@ -2,10 +2,10 @@ import { setFormError, withDisabledSubmit } from "../core/uiForm.js";
 
 const LOGIN_HTML = `
 <h1>Вход по роли</h1>
-<p class="muted">Создаётся пользователь на сервере (POST /api/users). Запусти backend на порту 3000.</p>
+<p class="muted">Один логин и роль на сервере — одна учётная запись; при повторном входе те же заявки. Backend на порту 3000.</p>
 <p id="login-error" class="error" hidden></p>
 <form id="login-form" class="card form">
-  <label>Имя <input name="name" required placeholder="Например, Артур" /></label>
+  <label>Логин <input name="name" required placeholder="Например, артур" autocomplete="username" /></label>
   <label>Роль
     <select name="role" required>
       <option value="requester">Заявитель</option>
