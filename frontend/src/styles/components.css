@@ -26,6 +26,19 @@
   padding: 14px;
 }
 
+.card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.card th,
+.card td {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+
 .form {
   display: grid;
   gap: 10px;
@@ -85,4 +98,43 @@ button,
 
 .muted {
   color: #666;
+}
+
+.error {
+  color: #b00020;
+  margin: 0 0 8px;
+}
+
+.field-group {
+  display: grid;
+  gap: 10px;
+}
+
+.ticket-meta {
+  display: grid;
+  gap: 6px;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.history-item {
+  font-size: 0.95rem;
+}
+
+.actions-panel {
+  display: grid;
+  gap: 10px;
+  max-width: 520px;
+}
+
+.actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { createHttpRouter } = require("./http/routers");
 const { UserService } = require("./application/UserService");
 const { TicketService } = require("./application/TicketService");
@@ -40,6 +41,7 @@ const userService = new UserService({ userRepository });
 const ticketService = new TicketService({ commandBus, ticketRepository });
 
 // ─── HTTP ───────────────────────────────────────────────────────────
+app.use(cors());
 app.use(express.json());
 app.use(createHttpRouter({ userService, ticketService }));
 
