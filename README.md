@@ -3,9 +3,14 @@
 
 ## Project structure
 
-- `backend` - Express API and domain logic
-- `frontend` - SPA on Web Components
-- `package.json` (root) - convenience scripts for running both parts
+- `backend` — бэкенд (Express API + доменная логика заявок и переходов)
+- `frontend` — фронтенд (SPA, интерфейс для входа, создания и обработки заявок)
+- `backend/src/domain` — бизнес-правила (статусы, роли, валидации)
+- `backend/src/application` — сценарии/сервисы приложения
+- `backend/src/http` — контроллеры и роуты API
+- `frontend/src/components` — UI-компоненты экранов
+- `frontend/src/core` — ядро SPA (роутинг/состояние приложения)
+- `package.json` (root) — общие скрипты для запуска backend + frontend
 
 ## Requirements
 

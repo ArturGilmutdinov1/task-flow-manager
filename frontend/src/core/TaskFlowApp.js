@@ -9,18 +9,27 @@ import { escapeHtml } from "./template.js";
 
 const SESSION_KEY = "tfm_current_user";
 
-const LAYOUT_HTML = `
+function buildLayoutHtml(isAuthenticated) {
+  const navLinks = isAuthenticated
+    ? `
+      <a href="#/tickets">Заявки</a>
+      <a href="#/tickets/new">Создать</a>
+      <a href="#/logout">Выйти</a>
+    `
+    : `
+      <a href="#/login">Вход</a>
+    `;
+
+  return `
 <header class="topbar">
   <div class="brand">Task Flow Manager</div>
   <nav class="nav">
-    <a href="#/login">Вход</a>
-    <a href="#/tickets">Заявки</a>
-    <a href="#/tickets/new">Создать</a>
-    <a href="#/logout">Выйти</a>
+    ${navLinks}
   </nav>
 </header>
 <section class="container" id="view"></section>
 `;
+}
 
 function getRouteFromHash() {
   const hash = window.location.hash || "#/login";
@@ -80,12 +89,13 @@ export class TaskFlowApp {
       return;
     }
 
-    this.root.innerHTML = LAYOUT_HTML;
+    this.root.innerHTML = buildLayoutHtml(Boolean(this.state.currentUser));
     const view = document.getElementById("view");
 
     if (path === "/login") {
       renderLogin({
         target: view,
+        initialName: this.state.currentUser?.name ?? "",
         onLogin: async (payload) => {
           const user = await this.api.signIn(payload);
           this._persistUser(user);

@@ -2,7 +2,6 @@ import { setFormError, withDisabledSubmit } from "../core/uiForm.js";
 
 const LOGIN_HTML = `
 <h1>Вход по роли</h1>
-<p class="muted">Один логин и роль на сервере — одна учётная запись; при повторном входе те же заявки. Backend на порту 3000.</p>
 <p id="login-error" class="error" hidden></p>
 <form id="login-form" class="card form">
   <label>Логин <input name="name" required placeholder="Например, артур" autocomplete="username" /></label>
@@ -17,10 +16,14 @@ const LOGIN_HTML = `
 </form>
 `;
 
-export function renderLogin({ target, onLogin }) {
+export function renderLogin({ target, onLogin, initialName = "" }) {
   target.innerHTML = LOGIN_HTML;
   const form = target.querySelector("#login-form");
   const errEl = target.querySelector("#login-error");
+  const nameInput = form?.querySelector('input[name="name"]');
+  if (nameInput && initialName) {
+    nameInput.value = initialName;
+  }
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();

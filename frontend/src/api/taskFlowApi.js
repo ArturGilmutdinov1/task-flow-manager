@@ -48,7 +48,7 @@ export class TaskFlowApi {
     return this._request("/health");
   }
 
-  /** Вход по логину (имя) и роли: тот же пользователь, если уже был создан с этим именем и ролью. */
+  /** Вход по логину (имя) и роли: одна учётка на имя; другая роль обновляет текущую роль (тот же id). */
   signIn({ name, role }) {
     return this._request("/api/users", { method: "POST", body: { name, role } });
   }

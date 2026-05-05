@@ -36,6 +36,13 @@ class User {
   get name() { return this._name; }
   get role() { return this._role; }
 
+  changeRole(role) {
+    if (!isValidUserRole(role)) {
+      throw new Error(`Invalid user role: ${role}`);
+    }
+    this._role = role;
+  }
+
   hasRole(role) {
     return this._role === role;
   }

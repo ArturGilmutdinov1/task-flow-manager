@@ -14,7 +14,8 @@ class UserService {
   }
 
   /**
-   * Вход по логину (имя) и роли: существующий пользователь или новая запись с тем же ключом.
+   * Вход по логину (имя) и роли: одна учётная запись на имя (без учёта регистра).
+   * Повторный вход с другой ролью обновляет роль у того же пользователя (тот же id).
    * @returns {{ user: User, created: boolean }}
    */
   signIn({ name, role }) {
@@ -26,9 +27,13 @@ class UserService {
     const key = normalizeLoginName(trimmedName);
     const existing = this._userRepository
       .findAll()
-      .find((u) => u.role === role && normalizeLoginName(u.name) === key);
+      .find((u) => normalizeLoginName(u.name) === key);
 
     if (existing) {
+      if (existing.role !== role) {
+        existing.changeRole(role);
+        this._userRepository.save(existing);
+      }
       return { user: existing, created: false };
     }
 

@@ -1,5 +1,6 @@
 import { escapeHtml } from "../core/template.js";
 import { labelType, labelStatus, labelAction } from "../constants/labels.js";
+import { FORM_FIELD_KEYS_BY_TYPE, labelFormField } from "../constants/formFields.js";
 import { setFormError } from "../core/uiForm.js";
 
 const TERMINAL = new Set(["approved", "rejected"]);
@@ -11,17 +12,26 @@ function formatDate(value) {
   return d.toLocaleString();
 }
 
-function buildFormRows(formData) {
-  const entries = Object.entries(formData || {});
-  if (!entries.length) {
+function buildFormRows(formData, ticketType) {
+  const data = formData || {};
+  const keys =
+    ticketType && FORM_FIELD_KEYS_BY_TYPE[ticketType]
+      ? FORM_FIELD_KEYS_BY_TYPE[ticketType]
+      : Object.keys(data);
+  const rows = keys
+    .map((key) => {
+      const val = data[key];
+      if (val === undefined || val === null || val === "") {
+        return null;
+      }
+      return `<tr><th scope="row">${escapeHtml(labelFormField(key))}</th><td>${escapeHtml(String(val))}</td></tr>`;
+    })
+    .filter(Boolean);
+
+  if (!rows.length) {
     return '<tr><td colspan="2" class="muted">Нет данных формы</td></tr>';
   }
-  return entries
-    .map(
-      ([key, val]) =>
-        `<tr><th scope="row">${escapeHtml(key)}</th><td>${escapeHtml(val)}</td></tr>`
-    )
-    .join("");
+  return rows.join("");
 }
 
 function buildHistory(history) {
@@ -78,6 +88,7 @@ function runTicketTransition(api, key, ticketId, body) {
 
 export function renderTicketDetails({ target, ticket, currentUser, api, onUpdated }) {
   const actions = getAvailableActions(ticket, currentUser);
+  const anyActionRequiresComment = actions.some((a) => a.requiresComment);
   const actionsHtml =
     actions.length === 0
       ? '<p class="muted">Нет доступных действий для этой роли и статуса.</p>'
@@ -89,6 +100,13 @@ export function renderTicketDetails({ target, ticket, currentUser, api, onUpdate
               )}</button>`
           )
           .join("")}</div>`;
+
+  const commentBlock =
+    actions.length > 0 && anyActionRequiresComment
+      ? `<label>Комментарий (обязателен для «Вернуть на доработку» и «Отклонить»)
+        <textarea id="ticket-action-comment" rows="3" placeholder="Комментарий"></textarea>
+      </label>`
+      : "";
 
   target.innerHTML = `
     <h1>Заявка ${escapeHtml(ticket.id)}</h1>
@@ -102,7 +120,7 @@ export function renderTicketDetails({ target, ticket, currentUser, api, onUpdate
     <h2>Данные формы</h2>
     <div class="card">
       <table>
-        <tbody>${buildFormRows(ticket.formData)}</tbody>
+        <tbody>${buildFormRows(ticket.formData, ticket.type)}</tbody>
       </table>
     </div>
     <h2>История</h2>
@@ -110,9 +128,7 @@ export function renderTicketDetails({ target, ticket, currentUser, api, onUpdate
     <h2>Действия</h2>
     <div class="card actions-panel">
       ${actionsHtml}
-      <label>Комментарий (обязателен для «Вернуть на доработку» и «Отклонить»)
-        <textarea id="ticket-action-comment" rows="3" placeholder="Комментарий"></textarea>
-      </label>
+      ${commentBlock}
       <p id="ticket-action-error" class="error" hidden></p>
     </div>
     <p><a href="#/tickets">Назад к списку</a></p>
