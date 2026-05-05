@@ -3,11 +3,6 @@ const { TransitionTicketCommand } = require('./commands/TransitionTicketCommand'
 
 /**
  * Шина команд (Command Bus)
- * 
- * Центральный компонент паттерна Command, который:
- * - Принимает команды от сервиса
- * - Маршрутизирует их к соответствующему обработчику
- * - Обеспечивает единую точку входа для всех операций
  */
 class CommandBus {
   constructor() {

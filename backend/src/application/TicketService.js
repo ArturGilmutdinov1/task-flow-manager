@@ -9,12 +9,6 @@ const { TicketStatus } = require('../domain/value-objects/TicketStatus');
 
 /**
  * Сервис управления заявками
- * 
- * Фасад, который предоставляет высокоуровневый API для работы с заявками.
- * Делегирует выполнение команд через CommandBus, что обеспечивает:
- * - Разделение ответственности (service → command → handler)
- * - Единообразную обработку всех операций
- * - Возможность добавления middleware/logging в CommandBus
  */
 class TicketService {
   /**
