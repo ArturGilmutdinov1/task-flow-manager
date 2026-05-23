@@ -1,6 +1,7 @@
 <template>
     <header>
-        здесь
+        <RouterLink to="/">Домой</RouterLink>
+        <RouterLink to="login">Выход</RouterLink>
     </header>
 </template>
 

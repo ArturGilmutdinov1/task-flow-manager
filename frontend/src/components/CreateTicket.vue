@@ -1,7 +1,7 @@
 <template>
-    <div>
-        CreateTicket
-    </div>
+    <section>
+        
+    </section>
 </template>
 
 
