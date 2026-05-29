@@ -1,19 +1,29 @@
 <template>
-    <form>
-        <label>Дата начала <input v-modele="startDate" type="date" required /></label>
-        <label>Дата окончания <input v-modele="endDate" type="date" required /></label>
-        <label>Причина / комментарий <textarea v-modele="reason" required placeholder="Комментарий к отпуску"></textarea></label>
-    </form>
+        <label>Дата начала <input v-modele="formData.startDate" type="date" required /></label>
+        <label>Дата окончания <input v-modele="formData.endDate" type="date" required /></label>
+        <label>Причина / комментарий <textarea v-modele="formData.reason" required placeholder="Комментарий к отпуску"></textarea></label>
 </template>
 
 
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import { useRouter } from 'vue-router';
+    import { ref, watch } from 'vue';
 
-    const router = useRouter();
-    const startDate = ref('');
-    const endDate = ref('');
-    const reason = ref('');
+    interface FormData {
+        startDate: string;
+        endDate: string;
+        reason: string;
+    }
+
+    const formData = ref<FormData>({
+        startDate:  '',
+        endDate: '',
+        reason: '',
+    })
+
+    const emit = defineEmits(['response'])
+    // генерация события с параметром
+    emit('response', (newValue) =>{ emit('response', { ...newValue })}, { deep: true })
+
+    watch()
 
 </script>

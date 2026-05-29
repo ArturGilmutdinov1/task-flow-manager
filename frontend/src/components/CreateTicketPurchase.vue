@@ -1,21 +1,30 @@
 <template>
-    <form>
-        <label>Наименование товара <input v-model="itemName" autocomplete="off" /></label>
-        <label>Количество <input v-model="quantity" inputmode="numeric" autocomplete="off" /></label>
-        <label>Цена <input v-model="price" inputmode="decimal" autocomplete="off" /></label>
-        <label>Причина / обоснование <textarea v-model="reason" placeholder="Зачем нужна закупка"></textarea></label>
-    </form>
+        <label>Наименование товара <input v-model="formData.itemName" autocomplete="off" /></label>
+        <label>Количество <input v-model="formData.quantity" inputmode="numeric" autocomplete="off" /></label>
+        <label>Цена <input v-model="formData.price" inputmode="decimal" autocomplete="off" /></label>
+        <label>Причина / обоснование <textarea v-model="formData.reason" placeholder="Зачем нужна закупка"></textarea></label>
 </template>
 
 
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import { useRouter } from 'vue-router';
+    import { ref, watch } from 'vue';
 
-    const router = useRouter();
-    const itemName = ref('');
-    const quantity = ref('');
-    const price = ref('');
-    const reason = ref('');
+    interface FormData {
+        itemName:  string;
+        quantity: number  | null;
+        price: number  | null;
+        reason: string| null;
+    }
+
+    const formData = ref<FormData>({
+        itemName: '',
+        quantity: null,
+        price: null,
+        reason: ''
+    })
+
+    const emit  = defineEmits(['response'])
+    watch(formData, (newValue) => { emit('response', { ...newValue })}, { deep: true })
+
 
 </script>
