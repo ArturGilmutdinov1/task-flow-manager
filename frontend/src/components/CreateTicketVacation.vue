@@ -1,7 +1,7 @@
 <template>
-        <label>Дата начала <input v-modele="formData.startDate" type="date" required /></label>
-        <label>Дата окончания <input v-modele="formData.endDate" type="date" required /></label>
-        <label>Причина / комментарий <textarea v-modele="formData.reason" required placeholder="Комментарий к отпуску"></textarea></label>
+        <label>Дата начала <input v-model="formData.startDate" type="date" required /></label>
+        <label>Дата окончания <input v-model="formData.endDate" type="date" required /></label>
+        <label>Причина / комментарий <textarea v-model="formData.reason" required placeholder="Комментарий к отпуску"></textarea></label>
 </template>
 
 
@@ -22,8 +22,7 @@
 
     const emit = defineEmits(['response'])
     // генерация события с параметром
-    emit('response', (newValue) =>{ emit('response', { ...newValue })}, { deep: true })
+    watch(formData, (newValue) => { emit('response', { ...newValue })}, { deep: true })
 
-    watch()
 
 </script>

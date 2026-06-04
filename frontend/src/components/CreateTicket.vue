@@ -13,7 +13,7 @@
             <CreateTicketPurchase v-if="ticketType==='purchase'" @response="(childFormData) => formData = childFormData"/>
             <CreateTicketVacation v-if="ticketType==='vacation'" @response="(childFormData) => formData = childFormData"/>
 
-            <button @click="createTicket()">Отправить</button>
+            <button type="button" @click="createTicket()">Отправить</button>
         </form>
     </section>
 </template>
