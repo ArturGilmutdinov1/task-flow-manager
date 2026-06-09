@@ -1,9 +1,8 @@
 <template>
     <RouterLink to="/create-ticket" > Создать карточку</RouterLink>
-    <button @click="add">тест</button>
     <section>
-        <article>
-             
+        <article v-for="ticket of tickets" :key="ticket.id">
+            <RouterLink to="`/ticket/${{:ticket.id}}`" > Создать карточку</RouterLink>
         </article>
     </section>
 </template>
@@ -11,13 +10,15 @@
 
 <script setup lang="ts">
 import { ticketApi } from '@/api';
-import { log } from 'node:console';
+import { ref } from 'vue';
+import { onMounted } from 'vue';
 
-    async function add(){
-        const result = await ticketApi.getTickets()
+const tickets = ref([])
 
-        console.log(result);
-        
-    }
+onMounted(() => {
+    ticketApi.getTickets().then((responce) => {
+        tickets.value = responce.data.items
+    })
+})
 </script>
 

@@ -1,7 +1,7 @@
 <template>
+        <label> Причина отпуска <input v-model="formData.itemName" autocomplete="off" /></label>
         <label>Дата начала <input v-model="formData.startDate" type="date" required /></label>
         <label>Дата окончания <input v-model="formData.endDate" type="date" required /></label>
-        <label>Причина / комментарий <textarea v-model="formData.reason" required placeholder="Комментарий к отпуску"></textarea></label>
 </template>
 
 
@@ -9,15 +9,15 @@
     import { ref, watch } from 'vue';
     
     export type VacationFormData = {
+        itemName: string;
         startDate: string;
         endDate: string;
-        reason: string;
     }
 
     const formData = ref<VacationFormData>({
+        itemName: '',
         startDate:  '',
         endDate: '',
-        reason: '',
     })
 
     const emit = defineEmits(['response'])

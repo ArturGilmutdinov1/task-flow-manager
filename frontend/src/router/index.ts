@@ -10,8 +10,7 @@ const routes = [
   { path:'/login', component: LoginPage },
   { path:'/not-found', component: NotFound },
   { path:'/create-ticket', component: CreateTicket },
-  { path:'/ticket', component: TicketForm },
-
+  { path:`/ticket/:id`, component: TicketForm },
 ]
 
 export const router = createRouter({
