@@ -20,28 +20,49 @@
 
 
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import CreateTicketPurchase from './CreateTicketPurchase.vue';
-    import CreateTicketVacation from './CreateTicketVacation.vue';
-    import type { CreateTicket } from '@/api'
+import { ref } from 'vue';
+import CreateTicketPurchase from './CreateTicketPurchase.vue';
+import CreateTicketVacation from './CreateTicketVacation.vue';
+import { ticketApi, type CreateTicket } from '@/api'
 
-    const ticketsType = ref([
-        { text: 'Покупка', value: 'purchase' },
-        { text: 'Отпуск', value: 'vacation' },
-        ])
-    
-    const formData = ref({})
-    const ticketType = ref('')
+type TicketType = 'purchase' | 'vacation'
 
-    function createTicket() {
-        const params = {
-            ticketType: ticketType.value,
-            ...formData.value
-        }
+const ticketsType = [
+    { text: 'Покупка', value: 'purchase' as const },
+    { text: 'Отпуск', value: 'vacation' as const },
+]
 
-        console.log(params);
-        
+const formData = ref<CreateTicket['formData'] | null>(null)
+const ticketType = ref<TicketType>('purchase')
+
+function handleFormData(data: CreateTicket['formData']) {
+    formData.value = data
+}
+
+function createTicket() {
+    if (!formData.value) {
+        alert('Заполните форму')
+        return
     }
-
+    
+    // Используем type assertion с проверкой
+    const data = {
+        type: ticketType.value,
+        formData: formData.value,
+        createdBy: 1
+    } as CreateTicket
+    
+    // Дополнительная runtime-проверка (опционально)
+    if (data.type === 'purchase' && !('itemName' in data.formData)) {
+        console.error('Несоответствие типа и данных')
+        return
+    }
+    if (data.type === 'vacation' && !('startDate' in data.formData)) {
+        console.error('Несоответствие типа и данных')
+        return
+    }
+    
+    ticketApi.createTicket(data)
+}
 </script>
 

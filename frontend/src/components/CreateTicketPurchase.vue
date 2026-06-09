@@ -9,14 +9,14 @@
 <script setup lang="ts">
     import { ref, watch } from 'vue';
 
-    interface FormData {
+    export type PurchaseFormData  = {
         itemName:  string;
         quantity: number  | null;
         price: number  | null;
         reason: string| null;
     }
 
-    const formData = ref<FormData>({
+    const formData = ref<PurchaseFormData>({
         itemName: '',
         quantity: null,
         price: null,

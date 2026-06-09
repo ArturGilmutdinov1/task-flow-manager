@@ -7,14 +7,14 @@
 
 <script setup lang="ts">
     import { ref, watch } from 'vue';
-
-    interface FormData {
+    
+    export type VacationFormData = {
         startDate: string;
         endDate: string;
         reason: string;
     }
 
-    const formData = ref<FormData>({
+    const formData = ref<VacationFormData>({
         startDate:  '',
         endDate: '',
         reason: '',
