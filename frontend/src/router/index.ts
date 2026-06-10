@@ -6,14 +6,28 @@ import CreateTicket from '@/components/CreateTicket.vue'
 import TicketForm from '@/components/TicketForm.vue'
 
 const routes = [
-  { path: '/', component: MainForm },
+  { path: '/', component: MainForm, meta: { requiresAuth: true }},
   { path:'/login', component: LoginPage },
   { path:'/not-found', component: NotFound },
-  { path:'/create-ticket', component: CreateTicket },
-  { path:`/ticket/:id`, component: TicketForm },
+  { path:'/create-ticket', component: CreateTicket, meta: { requiresAuth: true } },
+  { path:`/ticket/:id`, component: TicketForm, meta: { requiresAuth: true } },
 ]
 
-export const router = createRouter({
+const router = createRouter({
   history: createWebHistory(),
   routes,
 })
+
+router.beforeEach( async (to, from)=> {
+  const userJSON = localStorage.getItem('tfm_current_user')
+  const isAuthenticated = !!userJSON;
+
+  if (!isAuthenticated && from.meta.requiresAuth) {
+    return {
+      path: '/login',
+      query: { redirect: to.fullPath },
+    }
+  }
+})
+
+export {router}

@@ -12,7 +12,7 @@
                     <option value="manager">Руководитель</option>
                 </select>
            </label>
-        <button type="button" @click="createUser">Отправить</button>
+        <button type="button" @click="createUser">Войти</button>
         </form>
     </section>
 </template>
@@ -21,9 +21,10 @@
 <script setup lang="ts">
     import { userApi } from '@/api';
     import { ref } from 'vue';
-    import { useRouter } from 'vue-router';
-
+    import { useRoute, useRouter } from 'vue-router';
+     
     const router = useRouter();
+    const route = useRoute();
     const name = ref('');
     const role = ref('');
 
@@ -31,8 +32,10 @@
         const response = await  userApi.createUser({name:name.value, role:role.value})
 
         const user = response.data;
-        sessionStorage.setItem('tfm_current_user', JSON.stringify(user));
-        router.push('/');
+        localStorage.setItem('tfm_current_user', JSON.stringify(user));
+
+        const redirect = route.query.redirect?.toString() || '/'
+        router.push(redirect);
     }
 
 </script>
