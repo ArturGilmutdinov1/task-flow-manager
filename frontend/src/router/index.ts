@@ -7,7 +7,7 @@ import TicketForm from '@/components/TicketForm.vue'
 
 const routes = [
   { path: '/', component: MainForm, meta: { requiresAuth: true }},
-  { path:'/login', component: LoginPage },
+  { path:'/login', component: LoginPage, requiresAuth: false },
   { path:'/not-found', component: NotFound },
   { path:'/create-ticket', component: CreateTicket, meta: { requiresAuth: true } },
   { path:`/ticket/:id`, component: TicketForm, meta: { requiresAuth: true } },
@@ -22,7 +22,7 @@ router.beforeEach( async (to, from)=> {
   const userJSON = localStorage.getItem('tfm_current_user')
   const isAuthenticated = !!userJSON;
 
-  if (!isAuthenticated && from.meta.requiresAuth) {
+  if (!isAuthenticated && to.meta.requiresAuth) {
     return {
       path: '/login',
       query: { redirect: to.fullPath },
