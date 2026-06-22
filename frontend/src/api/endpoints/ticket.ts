@@ -13,9 +13,10 @@ type TicketPurchase = {
 type TicketVacation = {
         type: 'vacation',
         formData: {
+                itemName: string,
                 startDate: string,
                 endDate: string,
-                reason: string
+                reason: string| null
         },
         createdBy: number
 }

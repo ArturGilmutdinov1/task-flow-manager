@@ -12,12 +12,15 @@
         itemName: string;
         startDate: string;
         endDate: string;
+        reason: string| null;
     }
 
     const formData = ref<VacationFormData>({
         itemName: '',
         startDate:  '',
         endDate: '',
+        reason: ' ',
+
     })
 
     const emit = defineEmits(['response'])

@@ -24,6 +24,7 @@ import { ref } from 'vue';
 import CreateTicketPurchase from './CreateTicketPurchase.vue';
 import CreateTicketVacation from './CreateTicketVacation.vue';
 import { ticketApi, type CreateTicket } from '@/api'
+import { getUser } from '@/utils/storage.ts';
 
 type TicketType = 'purchase' | 'vacation'
 
@@ -40,16 +41,22 @@ function handleFormData(data: CreateTicket['formData']) {
 }
 
 function createTicket() {
+    const user = getUser()
+    
+    if (!user) {
+        alert('Авторизуйтесь');
+        return; 
+    }
     if (!formData.value) {
         alert('Заполните форму')
         return
     }
-    
+
     // Используем type assertion с проверкой
     const data = {
         type: ticketType.value,
         formData: formData.value,
-        createdBy: 1
+        createdBy: user.id
     } as CreateTicket
     
     // Дополнительная runtime-проверка (опционально)

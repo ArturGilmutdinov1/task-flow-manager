@@ -2,7 +2,9 @@
     <RouterLink to="/create-ticket" > Создать карточку</RouterLink>
     <section>
         <article v-for="ticket of tickets" :key="ticket.id">
-            <RouterLink to="`/ticket/${{:ticket.id}}`" > Создать карточку</RouterLink>
+            <RouterLink :to="`/ticket/${ticket.id}`">
+              {{ ticket.formData?.itemName }}
+            </RouterLink>       
         </article>
     </section>
 </template>
