@@ -142,12 +142,11 @@ class TicketService {
    * @returns {Ticket[]}
    */
   listTickets({ userId, role } = {}) {
-
+  const allTickets = this._ticketRepository.findAll();
 
     if (!userId || !role) {
       return allTickets;
     }
-        const allTickets = this._ticketRepository.findAll();
 
     const visibility = TicketsVisibilityByRole[role];
     if (!visibility) {
@@ -155,7 +154,7 @@ class TicketService {
     }
 
     if (visibility === 'own') {
-      allTickets.filter((ticket) => String(ticket.createdBy) === String(userId));
+      return allTickets.filter((ticket) => String(ticket.createdBy) === String(userId));
     }
 
     // Для оператора и руководителя — заявки в соответствующем статусе
