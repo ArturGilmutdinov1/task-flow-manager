@@ -24,6 +24,6 @@ export type CreateTicket = TicketPurchase | TicketVacation
 
 export const ticketApi = {
     getTickets:() => apiClient.get('/api/tickets'),
-    getTicket:(id:number) => apiClient.get(`/api/tickets/${id}`),
+    getTicket:(id:string) => apiClient.get(`/api/tickets/${id}`),
     createTicket:(data:CreateTicket) => apiClient.post('/api/tickets', data)
 } 
