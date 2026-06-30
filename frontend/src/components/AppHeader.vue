@@ -16,3 +16,23 @@
     }
 </script>
 
+<style scoped>
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-4);
+    background: var(--color-gray-100);
+    border-bottom: 1px solid var(--color-gray-300);
+}
+
+header a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+</style>
+
