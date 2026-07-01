@@ -12,6 +12,10 @@
     "test": "npm run test --workspace backend"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.7",
     "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+    "element-plus": "^2.14.2"
   }
 }
