@@ -1,9 +1,9 @@
 <template>
-    <div class="vacation-form">  
+    <div class="purchase-form">  
 
         <h1>{{ticket.itemName}}</h1>
 
-        <em> Заявки на покупку </em>
+        <em>Заявка на покупку</em>
 
         <div>Количество: {{ ticket.quantity }}</div>
         <div>Цена:  {{ ticket.price }}</div>
@@ -11,12 +11,10 @@
     </div>
 </template>
 
-<script setup>
-const props = defineProps({
-        ticket: {
-            type: Object,
-            required: true
-        }
-    })
-console.log(props)
+<script setup lang="ts">
+    import type { PurchaseFormData } from './CreateTicketPurchase.vue';
+
+    defineProps<{
+        ticket: PurchaseFormData
+    }>()
 </script>

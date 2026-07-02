@@ -14,7 +14,7 @@
     </section>
 
     <Teleport to="body">
-        <div v-if="openHistory" class="modal-overlay"">
+        <div v-if="openHistory" class="modal-overlay">
             <div class="modal-content">
                 <ModalHistoryWindow :historyData="ticketHistory"/>
                 <button @click="openHistory = false">Закрыть</button>
@@ -101,6 +101,8 @@
                 await actionTicketApi.reject(ticketId, dataFromSend.value);
                 break;
         }
+
+        router.push('/');
     }
 </script>
 

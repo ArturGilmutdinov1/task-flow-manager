@@ -1,17 +1,19 @@
 <template>
     <header>
         <RouterLink to="/">Домой</RouterLink>
-        <a href="#" @click.prevent="removeLocalStorage">Выход</a>
+        <a href="#" @click.prevent="logout">Выход</a>
     </header>
 </template>
 
 
 <script setup lang="ts">
-    import { useRoute, useRouter } from 'vue-router';
+    import { useRouter } from 'vue-router';
+    import { removeUser } from '@/utils/storage';
+
     const router = useRouter();
 
-    function removeLocalStorage() {
-        localStorage.removeItem('tfm_current_user')
+    function logout() {
+        removeUser()
         router.push('/login');
     }
 </script>

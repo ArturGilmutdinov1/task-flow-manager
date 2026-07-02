@@ -21,10 +21,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import CreateTicketPurchase from './CreateTicketPurchase.vue';
 import CreateTicketVacation from './CreateTicketVacation.vue';
 import { ticketApi, type CreateTicket } from '@/api'
-import { getUser } from '@/utils/storage.ts';
+import { getUser } from '@/utils/storage';
+
+const router = useRouter();
 
 type TicketType = 'purchase' | 'vacation'
 
@@ -36,11 +39,7 @@ const ticketsType = [
 const formData = ref<CreateTicket['formData'] | null>(null)
 const ticketType = ref<TicketType>('purchase')
 
-function handleFormData(data: CreateTicket['formData']) {
-    formData.value = data
-}
-
-function createTicket() {
+async function createTicket() {
     const user = getUser()
     
     if (!user) {
@@ -69,7 +68,8 @@ function createTicket() {
         return
     }
     
-    ticketApi.createTicket(data)
+    await ticketApi.createTicket(data)
+    router.push('/')
 }
 </script>
 

@@ -11,6 +11,7 @@ const routes = [
   { path:'/not-found', component: NotFound },
   { path:'/create-ticket', component: CreateTicket, meta: { requiresAuth: true } },
   { path:`/ticket/:id`, component: TicketForm, meta: { requiresAuth: true } },
+  { path: '/:pathMatch(.*)*', redirect: '/not-found' },
 ]
 
 const router = createRouter({

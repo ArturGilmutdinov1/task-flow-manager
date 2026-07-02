@@ -1,7 +1,7 @@
 <template>
         <label>Наименование товара <input v-model="formData.itemName" autocomplete="off" /></label>
-        <label>Количество <input v-model="formData.quantity" inputmode="numeric" autocomplete="off" /></label>
-        <label>Цена <input v-model="formData.price" inputmode="decimal" autocomplete="off" /></label>
+        <label>Количество <input v-model.number="formData.quantity" inputmode="numeric" autocomplete="off" /></label>
+        <label>Цена <input v-model.number="formData.price" inputmode="decimal" autocomplete="off" /></label>
         <label>Причина / обоснование <textarea v-model="formData.reason" placeholder="Зачем нужна закупка"></textarea></label>
 </template>
 

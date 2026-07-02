@@ -9,21 +9,17 @@
             </thead>
             <tbody>
                 <tr v-for="(history, index) in historyData" :key="index">
-                    <td>пока никто</td>
+                    <td>{{ history.actorId ?? '—' }}</td>
                     <td>{{ history.at }}</td>
-                    <td>{{ history.comment }}</td>
+                    <td>{{ history.comment ?? '—' }}</td>
                 </tr>
             </tbody>
             </table>
 </template>
 
 
-<script setup>
-    const props = defineProps({
+<script setup  lang="ts">
+    defineProps({
         historyData: Array
     })
-    
-    const historyData = props.historyData;
-    console.log(historyData);
-    
 </script>
