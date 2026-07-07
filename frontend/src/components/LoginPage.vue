@@ -4,9 +4,9 @@
             Вход по роли
         </h1>
         <form>
-            <label for="name">Логин <input v-model="name" placeholder="Например, артур" /></label>
+            <label for="name">Логин <input v-model="form.name" placeholder="Например, артур" /></label>
             <label>Роль
-                <select v-model="role" required>
+                <select v-model="form.role" required>
                     <option value="requester">Заявитель</option>
                     <option value="operator">Оператор</option>
                     <option value="manager">Руководитель</option>
@@ -19,20 +19,22 @@
 
 
 <script setup lang="ts">
-    import { userApi } from '@/api';
+    import { useAuthStore } from '@/store/auth';
     import { ref } from 'vue';
     import { useRoute, useRouter } from 'vue-router';
      
     const router = useRouter();
     const route = useRoute();
-    const name = ref('');
-    const role = ref('');
+    
+    const authStore = useAuthStore()
+
+    const form = ref({
+        name: '',
+        role: 'requester' as 'requester' | 'operator' | 'manager'
+    });
 
     async function createUser() {
-        const response = await  userApi.createUser({name:name.value, role:role.value})
-
-        const user = response.data;
-        localStorage.setItem('tfm_current_user', JSON.stringify(user));
+        await authStore.createUser( form.value.name, form.value.role)
 
         const redirect = route.query.redirect?.toString() || '/'
         router.push(redirect);
