@@ -1,8 +1,9 @@
 // src/utils/storage.ts
 
 export interface User {
-  id: number
+  id: string
   name: string
+  role: string
 }
 
 export function getUser(): User | null {

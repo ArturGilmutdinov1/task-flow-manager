@@ -1,18 +1,33 @@
 <template>
-    <div class="vacation-form">  
-        <h1>{{ ticket.itemName }}</h1>
+  <div class="ticket-detail">
+    <p class="ticket-type-label">🏖 Заявка на отпуск</p>
+    <h2>{{ ticket.itemName }}</h2>
 
-        <em> Заявка на отпуск </em>
-        с <time datetime="startDate">{{ ticket.startDate }}</time> по <time datetime="endDate">{{ ticket.endDate }}</time>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="detail-item__label">Дата начала</span>
+        <span class="detail-item__value">{{ ticket.startDate || '—' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-item__label">Дата окончания</span>
+        <span class="detail-item__value">{{ ticket.endDate || '—' }}</span>
+      </div>
     </div>
+  </div>
 </template>
 
-<script setup>
-    const props = defineProps({
-        ticket: {
-            type: Object,
-            required: true
-        }
-    })
-
+<script setup lang="ts">
+defineProps<{
+  ticket: {
+    itemName: string
+    startDate: string
+    endDate: string
+  }
+}>()
 </script>
+
+<style scoped>
+.ticket-detail h2 {
+  margin-bottom: var(--space-5);
+}
+</style>

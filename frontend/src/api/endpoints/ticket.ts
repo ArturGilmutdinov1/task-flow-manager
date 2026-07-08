@@ -8,7 +8,7 @@ type TicketPurchase = {
                 price: number  | null,
                 reason: string| null
         }
-        createdBy: number
+        createdBy: string
 }
 type TicketVacation = {
         type: 'vacation',
@@ -18,7 +18,7 @@ type TicketVacation = {
                 endDate: string,
                 reason: string| null
         },
-        createdBy: number
+        createdBy: string
 }
 export type CreateTicket = TicketPurchase | TicketVacation 
 
